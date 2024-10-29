@@ -7,10 +7,6 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 script {
-                    // Ensure Node.js and npm are installed
-                    sh 'node -v'
-                    sh 'npm -v'
-                    // Install project dependencies
                     sh 'npm install'
                 }
             }
@@ -18,7 +14,6 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    // Run your tests
                     sh 'npm test'
                 }
             }
@@ -26,7 +21,6 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    // If there's a build step, add it here (e.g., npm run build)
                     sh 'npm run build'
                 }
             }

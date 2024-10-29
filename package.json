@@ -1,15 +1,17 @@
 {
-  "name": "devops_assignment",
+  "name": "my-node-app",
   "version": "1.0.0",
-  "main": "app.js",
+  "description": "A simple Node.js web application",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "build": "echo 'Building the app...' && mkdir -p dist && cp index.js dist/"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "express": "^4.21.1"
+  "dependencies": {},
+  "devDependencies": {
+    "jest": "^29.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
