@@ -4,8 +4,8 @@
   "description": "A simple Node.js web application",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "build": "echo 'Building the app...' && mkdir -p dist && cp index.js dist/"
+    "test": "jest --verbose",
+    "build": "echo 'Building the app...' && mkdir -p dist && cp index.js dist/ && echo 'Build complete.'"
   },
   "dependencies": {},
   "devDependencies": {
