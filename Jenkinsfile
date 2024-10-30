@@ -10,7 +10,7 @@ pipeline {
                 sh '''
                     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
                     export NVM_DIR="$HOME/.nvm"
-                    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+                    . "$NVM_DIR/nvm.sh"
                     nvm install $NODE_VERSION
                     nvm alias default $NODE_VERSION
                 '''
@@ -21,7 +21,7 @@ pipeline {
                 echo 'Installing project dependencies...'
                 sh '''
                     export NVM_DIR="$HOME/.nvm"
-                    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+                    . "$NVM_DIR/nvm.sh"
                     nvm use $NODE_VERSION
                     npm install
                     npm install jest --save-dev
@@ -33,7 +33,7 @@ pipeline {
                 echo 'Running tests...'
                 sh '''
                     export NVM_DIR="$HOME/.nvm"
-                    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+                    . "$NVM_DIR/nvm.sh"
                     nvm use $NODE_VERSION
                     npm test
                 '''
@@ -44,7 +44,7 @@ pipeline {
                 echo 'Building the application...'
                 sh '''
                     export NVM_DIR="$HOME/.nvm"
-                    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+                    . "$NVM_DIR/nvm.sh"
                     nvm use $NODE_VERSION
                     npm run build
                 '''
