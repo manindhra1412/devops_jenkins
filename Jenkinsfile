@@ -8,7 +8,7 @@ pipeline {
             steps {
                 echo 'Installing dependencies...'
                 script {
-                    sh 'npm install'
+                    sh 'npm install && npm install jest --save-dev'
                 }
             }
         }
