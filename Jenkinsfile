@@ -1,35 +1,53 @@
 pipeline {
     agent any
     environment {
-        NODE_VERSION = '14' // Set to the desired Node.js version
+        NODE_VERSION = '14' // Specify the Node.js version you want
     }
     stages {
         stage('Install NVM and Node.js') {
             steps {
                 echo 'Installing NVM and setting up Node.js...'
-                sh 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash'
-                sh '. ~/.nvm/nvm.sh && nvm install $NODE_VERSION'
-                sh '. ~/.nvm/nvm.sh && nvm use $NODE_VERSION'
-                sh '. ~/.nvm/nvm.sh && node -v && npm -v' // Verify Node and npm versions
+                sh '''
+                    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+                    export NVM_DIR="$HOME/.nvm"
+                    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+                    nvm install $NODE_VERSION
+                    nvm alias default $NODE_VERSION
+                '''
             }
         }
         stage('Install Dependencies') {
             steps {
                 echo 'Installing project dependencies...'
-                sh '. ~/.nvm/nvm.sh && nvm use $NODE_VERSION && npm install'
-                sh '. ~/.nvm/nvm.sh && nvm use $NODE_VERSION && npm install jest --save-dev' // Install Jest
+                sh '''
+                    export NVM_DIR="$HOME/.nvm"
+                    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+                    nvm use $NODE_VERSION
+                    npm install
+                    npm install jest --save-dev
+                '''
             }
         }
         stage('Run Tests') {
             steps {
                 echo 'Running tests...'
-                sh '. ~/.nvm/nvm.sh && nvm use $NODE_VERSION && npm test' // Runs Jest tests
+                sh '''
+                    export NVM_DIR="$HOME/.nvm"
+                    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+                    nvm use $NODE_VERSION
+                    npm test
+                '''
             }
         }
         stage('Build') {
             steps {
                 echo 'Building the application...'
-                sh '. ~/.nvm/nvm.sh && nvm use $NODE_VERSION && npm run build' // Run build command
+                sh '''
+                    export NVM_DIR="$HOME/.nvm"
+                    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+                    nvm use $NODE_VERSION
+                    npm run build
+                '''
             }
         }
     }
